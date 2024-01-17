@@ -8,9 +8,25 @@
 </head>
 <body>
     <div id="game-container">
-        <h2>Math Equation: <span id="equation">{{ equation }}</span></h2>
+        <h2>Number: <span id="number">{{ number }}</span></h2>
         <div id="timer">30</div>
         <!-- Todo : add more game controls and elements here  -->
+        <!-- Add this inside the <body> tag of your index.html -->
+
+        <form action="/submit_answer" method="post">
+            <label for="player-input">Enter your equation:</label>
+            <input type="text" id="player-input" name="player_input" required>
+            <input type="submit" value="Submit">
+        </form>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash {{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}   
+
     </div>
 
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
