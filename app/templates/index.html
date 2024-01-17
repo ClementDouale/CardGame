@@ -16,6 +16,14 @@
             <input type="text" id="player-input" name="player_input" required>
             <input type="submit" value="Submit">
         </form>
+        
+        <div id="operators">
+            <button onclick="addOperatorToInput('+')">+</button>
+            <button onclick="addOperatorToInput('-')">-</button>
+            <button onclick="addOperatorToInput('*')">*</button>
+            <button onclick="addOperatorToInput('/')">/</button>
+        </div>
+        
 
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
@@ -28,9 +36,10 @@
         <div id="hands-and-stack">
             <div id="player-hand">
                 <h3>Your Hand:</h3>
-                <br>
                 {% for card in player_hand %}
-                    <img src="{{ url_for('static', filename='images/cards/' + card + '.png') }}" alt="{{ card }}">
+                    <img src="{{ url_for('static', filename='images/cards/' + card + '.png') }}" 
+                    alt="{{ card }} "
+                    onclick="addCardValueToInput('{{ card_value(card) }}')">
                 {% endfor %}
             </div>
         

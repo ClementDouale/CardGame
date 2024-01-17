@@ -13,3 +13,13 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }, 1000);
 });
+
+function addCardValueToInput(cardValue) {
+    var inputField = document.getElementById('player-input');
+    inputField.value += cardValue + ' '; // Adds the card value and a space
+}
+
+function addOperatorToInput(operator) {
+    var inputField = document.getElementById('player-input');
+    inputField.value += ' ' + operator + ' '; // Adds space before and after operator
+}
