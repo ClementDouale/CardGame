@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         if (timeLeft <= 0) {
             clearInterval(timer);
-            // Handle the end of the timer (e.g., submit the form automatically or show a message)
+            // Todo : Handle the end of the timer (e.g., submit the form automatically or show a message)
             alert("Time's up!");
         }
     }, 1000);

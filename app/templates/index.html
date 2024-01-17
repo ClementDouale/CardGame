@@ -10,8 +10,6 @@
     <div id="game-container">
         <h2>Number: <span id="number">{{ number }}</span></h2>
         <div id="timer">30</div>
-        <!-- Todo : add more game controls and elements here  -->
-        <!-- Add this inside the <body> tag of your index.html -->
 
         <form action="/submit_answer" method="post">
             <label for="player-input">Enter your equation:</label>
@@ -25,10 +23,26 @@
                     <div class="flash {{ category }}">{{ message }}</div>
                 {% endfor %}
             {% endif %}
-        {% endwith %}   
+        {% endwith %}
 
+        <div id="hands-and-stack">
+            <div id="player-hand">
+                <h3>Your Hand:</h3>
+                <br>
+                {% for card in player_hand %}
+                    <img src="{{ url_for('static', filename='images/cards/' + card + '.png') }}" alt="{{ card }}">
+                {% endfor %}
+            </div>
+        
+            <div id="card-stack">
+                <h3>Card Stack:</h3>
+                <p>{{ card_stack|length }} cards remaining</p>
+                <img src="{{ url_for('static', filename='images/cards/card_deck.png') }}" alt="Card Stack" class="card-stack-image">
+            </div>
+        </div>
     </div>
 
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
+
 </html>
