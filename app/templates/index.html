@@ -7,6 +7,30 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 </head>
 <body>
+        <!-- Rules Button -->
+    <button id="rules-btn" class="rules-btn">Rules</button>
+
+    <!-- Rules Modal -->
+    <div id="rules-modal" class="rules-modal">
+        <div class="rules-modal-content">
+            <span class="close">&times;</span>
+            <h2>Game Rules</h2>
+            <p> You are given a random number between 0 and 99 each round, and you have to use your current cards in order to create an equation which will have the same result as the number. 
+                <br><br> You can use the 4 operators in order to create your equations :
+                <button> + </button>
+                <button> - </button>
+                <button> * </button>
+                <button> / </button>
+
+                <br><br> Click on the Cards and the operators in order to fill out the submit form</p>
+            <p>Here are the values for the face cards:</p>
+            <ul>
+                <img src="{{ url_for('static', filename='images/cards/hearts_J.png') }}" alt="Jack Card" class="face-card-image"> J (Jack) = 11
+                <img src="{{ url_for('static', filename='images/cards/hearts_Q.png') }}" alt="Queen Card" class="face-card-image"> Q (Queen) = 12
+                <img src="{{ url_for('static', filename='images/cards/hearts_K.png') }}" alt="King Card" class="face-card-image"> K (King) = 13
+            </ul>
+        </div>
+    </div>
     <div id="game-container">
         <form action="{{ url_for('bp.new_game') }}" method="post">
             <input type="submit" value="Start New Game">
