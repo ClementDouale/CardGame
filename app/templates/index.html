@@ -17,6 +17,7 @@
         <form action="/submit_answer" method="post">
             <label for="player-input">Enter your equation:</label>
             <input type="text" id="player-input" name="player_input" required>
+            <input type="hidden" id="selected-cards" name="selected_cards">
             <input type="submit" value="Submit">
         </form>
         
@@ -42,8 +43,8 @@
                 {% for card in player_hand %}
                     <img src="{{ url_for('static', filename='images/cards/' + card + '.png') }}" 
                     alt="{{ card }} "
-                    onclick="addCardValueToInput('{{ card_value(card) }}')">
-                {% endfor %}
+                    onclick="addCardValueToInput('{{ card_value(card) }}', '{{ card }}')">
+                    {% endfor %}
             </div>
         
             <div id="card-stack">

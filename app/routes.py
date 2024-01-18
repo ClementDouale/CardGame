@@ -1,5 +1,5 @@
 from flask import Flask, flash, Blueprint, render_template, request, redirect, url_for, session
-from game_logic import evaluate_player_input, generate_number, generate_hand_for_players_and_stack, card_value, draw_card, extract_used_cards
+from game_logic import evaluate_player_input, generate_number, generate_hand_for_players_and_stack, card_value, draw_card
 import os
 
 app = Flask(__name__)
@@ -61,27 +61,33 @@ def new_game():
 @bp.route('/submit_answer', methods=['POST'])
 def submit_answer():
     user_input = request.form['player_input']
+    selected_cards = request.form['selected_cards'].split(',')
+    print(selected_cards)
     result = evaluate_player_input(user_input)
     number_generated = session.get('number')
 
     if result == number_generated:
-        used_cards = extract_used_cards(user_input)
         player_hand = session.get('player_hand', [])
+        print(player_hand)
         card_stack = session.get('card_stack', [])
+        print(card_stack)
 
-        # Draw new cards based on the number of used cards
-        player_hand, card_stack = draw_card(player_hand, card_stack, used_cards)
 
         # Remove used cards from the player's hand
-        for card in used_cards:
+        for card in selected_cards:
             if card in player_hand:
                 player_hand.remove(card)
 
+        # Draw new cards based on the number of used cards
+        player_hand, card_stack = draw_card(player_hand, card_stack, selected_cards)
+        
         session['player_hand'] = player_hand
         session['card_stack'] = card_stack
         session['number'] = generate_number()  # Generate a new number for the next round
         session.modified = True
 
+        print(player_hand)
+        print(card_stack)
         flash("Correct result! Well done", "success")
         return redirect(url_for('bp.game'))
 

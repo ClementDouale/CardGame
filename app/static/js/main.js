@@ -14,9 +14,15 @@ document.addEventListener("DOMContentLoaded", function() {
     }, 1000);
 });
 
-function addCardValueToInput(cardValue) {
+function addCardValueToInput(cardValue, cardName) {
     var inputField = document.getElementById('player-input');
+    var selectedCardsField = document.getElementById('selected-cards');
     inputField.value += cardValue + ' '; // Adds the card value and a space
+     // Append the card name to the hidden input
+     if (selectedCardsField.value) {
+        selectedCardsField.value += ','; // Add a comma if it's not the first card
+    }
+    selectedCardsField.value += cardName;
 }
 
 function addOperatorToInput(operator) {
