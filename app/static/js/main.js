@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
-    let timeLeft = 30;
+    let timeLeft = 90;
     const timerElement = document.getElementById('timer');
 
     const timer = setInterval(function() {

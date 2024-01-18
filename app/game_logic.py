@@ -11,12 +11,12 @@ values = {
         'spades_2':2, 'spades_3':3, 'spades_4':4, 'spades_5':5, 'spades_6':6, 'spades_7':7, 'spades_8':8, 'spades_9':9, 'spades_10':10, 'spades_J':11, 'spades_Q':12, 'spades_K':13, 'spades_A':14
     }
 card_names = set(values.keys())
-ranks = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
-deck = ranks * 4  # Since there are four suits
+#ranks = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
+#deck = ranks * 4  # Since there are four suits
 
-operators = {'+': operator.add, '-': operator.sub, '*': operator.mul, '/': operator.truediv}
+#operators = {'+': operator.add, '-': operator.sub, '*': operator.mul, '/': operator.truediv}
 
-random.shuffle(deck)
+#random.shuffle(deck)
 
 # Mapping for face cards
 def card_value(card_name):
@@ -24,10 +24,13 @@ def card_value(card_name):
     # Example card values - modify according to your game's rules
     return values.get(card_name, 0)  # Return 0 or some default value if card_name is not found
 
-def draw_card():
-    # Implement logic to draw a card from the main deck
-    
-    pass
+def draw_card(player_hand, card_stack, used_cards):
+    num_cards_to_draw = len(used_cards)
+    while len(player_hand) < 10 and len(card_stack) > 0 and num_cards_to_draw > 0:
+        player_hand.append(card_stack.pop(0))
+        num_cards_to_draw -= 1
+    return player_hand, card_stack
+
 
 
 
@@ -62,3 +65,27 @@ def generate_hand_for_players_and_stack():
     player_hand = all_cards[:10]
     card_stack = all_cards[10:]
     return player_hand, card_stack
+
+def extract_used_cards(user_input):
+    """
+    Extracts card names from the user input.
+    
+    Args:
+    user_input (str): The user's input string containing card names and mathematical operators.
+    
+    Returns:
+    list: A list of card names used in the input.
+    """
+    # Split the input by spaces to isolate cards and operators
+    components = user_input.split()
+
+    # List to hold the names of the used cards
+    used_cards = []
+
+    # Iterate over the components and add to the used_cards list if it's a card name
+    for component in components:
+        if component in card_names:  # Assuming card_names is a set of all valid card names
+            used_cards.append(component)
+
+    print(used_cards)
+    return used_cards
