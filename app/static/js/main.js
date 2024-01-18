@@ -30,21 +30,29 @@ function addOperatorToInput(operator) {
     inputField.value += ' ' + operator + ' '; // Adds space before and after operator
 }
 
+function openRulesModal() {
+    var modal = document.getElementById('rules-modal');
+    modal.style.display = 'block';
+}
+
 document.addEventListener('DOMContentLoaded', function() {
+    // Open the rules modal when the page first loads
+    openRulesModal();
+
+    // Get the "Rules" button
+    var rulesBtn = document.getElementById('rules-btn');
+
     // Get the modal
     var modal = document.getElementById('rules-modal');
 
-    // Get the button that opens the modal
-    var btn = document.getElementById('rules-btn');
-
-    // Get the <span> element that closes the modal
+    // Get the close button
     var span = document.getElementsByClassName('close')[0];
 
-    // When the user clicks the button, open the modal 
-    btn.onclick = function() {
-        modal.style.display = 'block';
-    }
-
+     // When the "Rules" button is clicked, open the modal 
+     rulesBtn.onclick = function() {
+        openRulesModal();
+    };
+    
     // When the user clicks on <span> (x), close the modal
     span.onclick = function() {
         modal.style.display = 'none';
@@ -57,3 +65,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 });
+
+
+function openRulesModal() {
+    var modal = document.getElementById('rules-modal');
+    modal.style.display = 'block';
+}

@@ -33,7 +33,7 @@
     </div>
     <div id="game-container">
         <form action="{{ url_for('bp.new_game') }}" method="post">
-            <input type="submit" value="Start New Game">
+            <input type="submit" value="Start New Game" id="new-game-btn">
         </form>
         <h2>Number: <span id="number">{{ number }}</span></h2>
         <div id="timer">30</div>
