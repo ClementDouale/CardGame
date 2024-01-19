@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
      rulesBtn.onclick = function() {
         openRulesModal();
     };
-    
+
     // When the user clicks on <span> (x), close the modal
     span.onclick = function() {
         modal.style.display = 'none';
@@ -65,7 +65,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 });
-
 
 function openRulesModal() {
     var modal = document.getElementById('rules-modal');
