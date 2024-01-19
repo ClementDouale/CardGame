@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Card Game</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+<body>
+        <!-- Rules Button -->
+    <button id="rules-btn" class="rules-btn">Rules</button>
+
+    <!-- Rules Modal -->
+    <div id="rules-modal" class="rules-modal">
+        <div class="rules-modal-content">
+            <span class="close">&times;</span>
+            <h2>Game Rules</h2>
+            <p> You are given a random number between 0 and 99 each round, and you have to use your current cards in order to create an equation which will have the same result as the number. 
+                <br><br> You can use the 4 operators in order to create your equations :
+                <button> + </button>
+                <button> - </button>
+                <button> * </button>
+                <button> / </button>
+
+                <br><br> Click on the Cards and the operators in order to fill out the submit form</p>
+            <p>Here are the values for the face cards:</p>
+            <ul>
+                <img src="{{ url_for('static', filename='images/cards/hearts_J.png') }}" alt="Jack Card" class="face-card-image"> J (Jack) = 11
+                <img src="{{ url_for('static', filename='images/cards/hearts_Q.png') }}" alt="Queen Card" class="face-card-image"> Q (Queen) = 12
+                <img src="{{ url_for('static', filename='images/cards/hearts_K.png') }}" alt="King Card" class="face-card-image"> K (King) = 13
+            </ul>
+        </div>
+    </div>
+    <div id="game-container">
+        <form action="{{ url_for('bp.new_game') }}" method="post">
+            <input type="submit" value="Start New Game" id="new-game-btn">
+        </form>
+        <h2>Number: <span id="number">{{ number }}</span></h2>
+        <div id="timer">30</div>
+
+        <form action="/submit_answer" method="post">
+            <label for="player-input">Enter your equation:</label>
+            <input type="text" id="player-input" name="player_input" required>
+            <input type="hidden" id="selected-cards" name="selected_cards">
+            <input type="submit" value="Submit">
+        </form>
+        
+        <div id="operators">
+            <button onclick="addOperatorToInput('+')">+</button>
+            <button onclick="addOperatorToInput('-')">-</button>
+            <button onclick="addOperatorToInput('*')">*</button>
+            <button onclick="addOperatorToInput('/')">/</button>
+        </div>
+        
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash {{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <div id="hands-and-stack">
+            <div id="player-hand">
+                <h3>Your Hand:</h3>
+                {% for card in player_hand %}
+                    <img src="{{ url_for('static', filename='images/cards/' + card + '.png') }}" 
+                    alt="{{ card }} "
+                    onclick="addCardValueToInput('{{ card_value(card) }}', '{{ card }}')">
+                    {% endfor %}
+            </div>
+        
+            <div id="card-stack">
+                <h3>Card Stack:</h3>
+                <p>{{ card_stack|length }} cards remaining</p>
+                <img src="{{ url_for('static', filename='images/cards/card_deck.png') }}" alt="Card Stack" class="card-stack-image">
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+
+</html>
